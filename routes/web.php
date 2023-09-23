@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\admin\AuthController;
+use App\Http\Controllers\admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('admin')->middleware('admin.access')->group(function () {
+    //admin login
+    Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+});
+
+Route::redirect('/admin', '/admin/login');
+Route::get('admin/login', [AuthController::class, 'index'])->name('admin.login');
+Route::post('admin/login/post', [AuthController::class, 'login'])->name('admin.login.post');
