@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,10 +15,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('users')->insert([
-            'name' => 'Gautam Yadav',
-            'email' => 'gautaminit@gmail.com',
-            'password' => Hash::make('123456'),
-        ]);
+        User::factory()->count(10000)->create();
     }
 }

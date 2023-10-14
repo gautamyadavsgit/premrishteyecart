@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,8 @@ Route::prefix('admin')->middleware('admin.access')->group(function () {
     //admin login
     Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+    Route::resource('users', UserController::class);
+    Route::post('user-data', [UserController::class, 'data'])->name('admin.users.data');
 });
 
 Route::redirect('/admin', '/admin/login');

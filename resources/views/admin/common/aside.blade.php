@@ -6,7 +6,7 @@
 
         <ul class="sidebar-nav">
             <li class="sidebar-header">
-                Pages
+                Management
             </li>
 
             <li class="sidebar-item active">
@@ -16,8 +16,8 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-profile.html">
-                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                <a class="sidebar-link" href="{{ route('users.index') }}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Users</span>
                 </a>
             </li>
 
@@ -276,7 +276,7 @@
                         <a class="dropdown-item" href="#"><i class="align-middle me-1"
                                 data-feather="help-circle"></i> Help Center</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{route('admin.logout')}}">Log out</a>
+                        <a class="dropdown-item" href="{{ route('admin.logout') }}">Log out</a>
                     </div>
                 </li>
             </ul>
