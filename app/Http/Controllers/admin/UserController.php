@@ -8,6 +8,9 @@ use App\Models\User;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+    }
     /**
      * Display a listing of the resource.
      */
@@ -59,7 +62,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $data['cssArray'] = [];
+        $data['jsArray'] = [];
+        return view('admin.users.create', $data);
     }
 
     /**
@@ -67,7 +72,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|min:3|string',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|min:10|max:10',
+            'status' => 'required|min:1|numeric',
+            'password' => 'required|min:6',
+            'roll' => 'required|min:1|numeric',
+        ]);
+
+        $user = User::create($request->all());
+        if ($user)
+            return redirect()->back()->with('success', 'User added successfully');
+        else
+            return redirect()->back()->with('error', 'Failed to add user');
     }
 
     /**

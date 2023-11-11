@@ -8,9 +8,11 @@
             <div class="mb-3">
                 <h1 class="h3 d-inline align-middle">Forms</h1>
                 <a class="badge bg-dark text-white ms-2" href="upgrade-to-pro.html">
-                    Get more form examples
+                    Create/Update user
                 </a>
             </div>
+            <form method="post" action="{{route('users.store')}}">
+                @csrf
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="card">
@@ -18,7 +20,7 @@
                             <h5 class="card-title mb-0">Name</h5>
                         </div>
                         <div class="card-body">
-                            <input type="text" name="name" class="form-control" placeholder="Enter user name">
+                            <input type="text" name="name" class="form-control" value="{{old('name')}}" placeholder="Enter user name">
                         </div>
                     </div>
 
@@ -27,7 +29,7 @@
                             <h5 class="card-title mb-0">Password</h5>
                         </div>
                         <div class="card-body">
-                            <input type="text" class="form-control" name="password"  placeholder="Enter user password">
+                            <input type="text" class="form-control" name="password"  value="{{old('password')}}" placeholder="Enter user password">
                         </div>
                     </div>
                  
@@ -39,7 +41,7 @@
                             <h5 class="card-title mb-0">Email</h5>
                         </div>
                         <div class="card-body">
-                            <input type="text" name="email" class="form-control" placeholder="Enter user email">
+                            <input type="text" name="email" class="form-control" value="{{old('email')}}" placeholder="Enter user email">
                         </div>
                     </div>
                     {{-- <div class="card">
@@ -139,9 +141,50 @@
                             </label>
                         </div>
                     </div> --}}
+               
+             
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Phone</h5>
+                        </div>
+                        <div class="card-body">
+                            <input type="number" name="phone" value="{{old('phone')}}" class="form-control" placeholder="Enter user phone">
+                        </div>
+                    </div>
                 </div>
+                
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Roll</h5>
+                        </div>
+                        <div class="card-body">
+                            <select class="form-select mb-3" name="roll">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Status</h5>
+                        </div>
+                        <div class="card-body">
+                            <select name="status" class="form-select mb-3">
+                                <option value="1">Active</option>
+                                <option value="2">Deactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
-
+            <button class="btn btn-primary ">Submit</button> 
+        </form>
         </div>
     </main>
 @endsection
