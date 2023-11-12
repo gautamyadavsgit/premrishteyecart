@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -44,6 +45,7 @@ class UserController extends Controller
                 $nestedData['email'] = $user->email;
                 $nestedData['phone'] = $user->mobile;
                 $nestedData['status'] = $user->status;
+                $nestedData['button'] = '<a href="'.route('users.edit',['user' => $user->id]).'" class="btn btn-primary">Edit</a>';
                 $response_data[] = $nestedData;
             }
         }
@@ -64,6 +66,7 @@ class UserController extends Controller
     {
         $data['cssArray'] = [];
         $data['jsArray'] = [];
+        $data['roles'] = Role::all()->toArray();
         return view('admin.users.create', $data);
     }
 
@@ -78,13 +81,14 @@ class UserController extends Controller
             'phone' => 'required|min:10|max:10',
             'status' => 'required|min:1|numeric',
             'password' => 'required|min:6',
-            'roll' => 'required|min:1|numeric',
+            'roll' => 'required',
         ]);
 
         $user = User::create($request->all());
-        if ($user)
+        if ($user) {
+            $user->assignRole($request->input('roll'));
             return redirect()->back()->with('success', 'User added successfully');
-        else
+        } else
             return redirect()->back()->with('error', 'Failed to add user');
     }
 
@@ -102,6 +106,11 @@ class UserController extends Controller
     public function edit(string $id)
     {
         //
+        $data['cssArray'] = [];
+        $data['jsArray'] = [];
+        $data['user'] = User::find($id)->toArray();
+        $data['roles'] = Role::all()->toArray();
+        return view('admin.users.create', $data);
     }
 
     /**

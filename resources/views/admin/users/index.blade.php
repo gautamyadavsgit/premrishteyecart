@@ -20,6 +20,7 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -62,6 +63,8 @@
                     },
                     {
                         "data": "status"
+                    }, {
+                        "data": "button"
                     }
                 ],
                 "searching": true,

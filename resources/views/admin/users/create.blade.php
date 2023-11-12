@@ -13,6 +13,7 @@
             </div>
             <form method="post" action="{{route('users.store')}}">
                 @csrf
+                <input type="hidden" name="user_id" value="{{ $user['id'] ?? '' }}">
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="card">
@@ -20,7 +21,7 @@
                             <h5 class="card-title mb-0">Name</h5>
                         </div>
                         <div class="card-body">
-                            <input type="text" name="name" class="form-control" value="{{old('name')}}" placeholder="Enter user name">
+                            <input type="text" name="name" class="form-control" value="{{old('name',$user['name']) ?? ''}}" placeholder="Enter user name">
                         </div>
                     </div>
 
@@ -41,7 +42,7 @@
                             <h5 class="card-title mb-0">Email</h5>
                         </div>
                         <div class="card-body">
-                            <input type="text" name="email" class="form-control" value="{{old('email')}}" placeholder="Enter user email">
+                            <input type="text" name="email" class="form-control" value="{{old('email',$user['email'] ?? '')}}" placeholder="Enter user email">
                         </div>
                     </div>
                     {{-- <div class="card">
@@ -148,7 +149,7 @@
                             <h5 class="card-title mb-0">Phone</h5>
                         </div>
                         <div class="card-body">
-                            <input type="number" name="phone" value="{{old('phone')}}" class="form-control" placeholder="Enter user phone">
+                            <input type="number" name="phone" value="{{old('phone',$user['phone'] ?? '')}}" class="form-control" placeholder="Enter user phone">
                         </div>
                     </div>
                 </div>
@@ -160,10 +161,13 @@
                         </div>
                         <div class="card-body">
                             <select class="form-select mb-3" name="roll">
-                                <option selected>Open this select menu</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                
+                               @foreach ($roles as $role )
+
+                               <option value="{{ $role['name'] }}" {{ (old('roll', $user ? $user['name'] : '') == $role['name']) ? 'selected' : '' }}>
+                                {{ $role['name'] }}
+                            </option>
+                               @endforeach
                             </select>
                         </div>
                     </div>
