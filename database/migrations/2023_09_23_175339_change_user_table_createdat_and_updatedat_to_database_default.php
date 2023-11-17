@@ -23,9 +23,9 @@ return new class extends Migration {
      */
     public function down() : void
     {
-        Schema::table('', function (Blueprint $table) {
-            $table->timestamp('created_at')->default(null)->change();
-            $table->timestamp('updated_at')->default(null)->change();
-        });
+        // Schema::table('', function (Blueprint $table) {
+        //     $table->timestamp('created_at')->default(null)->change();
+        //     $table->timestamp('updated_at')->default(null)->change();
+        // });
     }
 };

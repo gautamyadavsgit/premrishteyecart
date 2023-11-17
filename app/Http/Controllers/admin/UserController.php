@@ -45,7 +45,13 @@ class UserController extends Controller
                 $nestedData['email'] = $user->email;
                 $nestedData['phone'] = $user->mobile;
                 $nestedData['status'] = $user->status;
-                $nestedData['button'] = '<a href="'.route('users.edit',['user' => $user->id]).'" class="btn btn-primary">Edit</a>';
+                $nestedData['button'] = '<a href="' . route('users.edit', ['user' => $user->id]) . '" class="btn btn-primary">Edit</a> &nbsp;' .
+                    '<form method="POST" action="' . route('users.destroy', ['user' => $user->id]) . '" style="display: inline;">' .
+                    '<input type="hidden" name="_token" value="' . csrf_token() . '">' .
+                    '<input type="hidden" name="_method" value="DELETE">' .
+                    '<button type="submit" class="btn btn-danger" onclick="return confirm(\'Are you sure you want to delete this user?\')">Delete</button>' .
+                    '</form>';
+
                 $response_data[] = $nestedData;
             }
         }
@@ -110,6 +116,7 @@ class UserController extends Controller
         $data['jsArray'] = [];
         $data['user'] = User::find($id)->toArray();
         $data['roles'] = Role::all()->toArray();
+
         return view('admin.users.create', $data);
     }
 
@@ -119,6 +126,20 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $request->validate([
+            'name' => 'required|min:3|string',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'mobile' => 'required|min:10|max:10',
+            'status' => 'required|min:1|numeric',
+            'password' => 'required|min:6',
+            'roll' => 'required',
+        ]);
+        $user = User::findorFail($id);
+        if ($user) {
+            $user->update($request->all());
+            return redirect()->back()->with('success', 'User updated successfully');
+        } else
+            return redirect()->back()->with('error', 'Failed to update user');
     }
 
     /**
