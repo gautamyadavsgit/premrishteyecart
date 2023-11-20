@@ -16,9 +16,12 @@ class AuthController extends Controller
     {
         $credentials =  $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required',]
+            'password' => ['required'],
         ]);
         if (Auth::attempt($credentials)) {
+            if (Auth::user()->status == 0) {
+                return redirect('admin/dashboard')->with('error', 'Your account is deactive');
+            }
             $request->session()->regenerate();
             return redirect()->intended('admin/dashboard');
         }

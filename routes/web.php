@@ -4,7 +4,7 @@ use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\UserController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\admin\QrCodeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,6 +26,7 @@ Route::prefix('admin')->middleware('admin.access')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
     Route::resource('users', UserController::class);
     Route::post('user-data', [UserController::class, 'data'])->name('admin.users.data');
+    Route::resource('qr-code', QrCodeController::class);
 });
 
 Route::redirect('/admin', '/admin/login');
