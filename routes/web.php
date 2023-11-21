@@ -27,6 +27,7 @@ Route::prefix('admin')->middleware('admin.access')->group(function () {
     Route::resource('users', UserController::class);
     Route::post('user-data', [UserController::class, 'data'])->name('admin.users.data');
     Route::resource('qr-code', QrCodeController::class);
+    Route::post('qr-list', [QrCodeController::class,'qr_list'])->name('admin.qr-list');
 });
 
 Route::redirect('/admin', '/admin/login');

@@ -55,15 +55,15 @@ class UserController extends Controller
                 $response_data[] = $nestedData;
             }
         }
-        $json_data = array(
+       
             $json_data = array(
                 "draw" => intval($request->input('draw')),
                 "recordsTotal" => $totalData,
                 "recordsFiltered" => $totalFiltered,
                 "data" => $response_data
-            )
-        );
-        return response()->json($json_data);
+            );
+       
+        return response($json_data);
     }
     /**
      * Show the form for creating a new resource.

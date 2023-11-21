@@ -11,9 +11,13 @@ class QrCodeController extends Controller
      */
     public function index()
     {
-        $data["cssArray"] = [];
-        $data["jsArray"] = [];
+        $data["cssArray"] = ['//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css'];
+        $data["jsArray"] = ['//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js'];
         return view("admin.qrcode.index", $data);
+    }
+    
+    public function qr_list(Request $request){
+         dd($request->all());
     }
 
     /**

@@ -30,57 +30,57 @@
 @endsection
 
 @section('footer')
-    <script>
-        $(document).ready(function() {
-            $('#user-table').DataTable({
-                "processing": true,
-                "serverSide": true,
-                "pageLength": 25,
-                "responsive": true,
-                "displayStart": 0,
-                "ajax": {
-                    "url": "{{ route('admin.users.data') }}",
-                    "type": "POST",
+<script>
+    $(document).ready(function() {
+        $('#user-table').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "pageLength": 25,
+            "responsive": true,
+            "displayStart": 0,
+            "ajax": {
+                "url": "{{ route('admin.users.data') }}",
+                "type": "POST",
 
-                    "dataType": "json",
-                    "dataSrc": function(json) {
-                        return json[0].data; // Assuming your data is wrapped in an array
-                    },
-
+                "dataType": "json",
+                "dataSrc": function(json) {
+                    return json.data; // Assuming your data is wrapped in an array
                 },
 
-                "columns": [{
-                        "data": "id"
-                    },
-                    {
-                        "data": "name"
-                    },
-                    {
-                        "data": "email"
-                    },
-                    {
-                        "data": "phone"
-                    },
-                    {
-                        "data": "status"
-                    }, {
-                        "data": "button"
-                    }
-                ],
-                "searching": true,
-                "lengthMenu": [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, "All"]
-                ],
-                "drawCallback": function(settings) {
-                    // Update the records total and filtered records count
-                    var api = this.api();
-                    $('#recordsTotal').text(api.page.info().recordsTotal);
-                    $('#recordsFiltered').text(api.page.info().recordsDisplay);
+            },
+
+            "columns": [{
+                    "data": "id"
                 },
+                {
+                    "data": "name"
+                },
+                {
+                    "data": "email"
+                },
+                {
+                    "data": "phone"
+                },
+                {
+                    "data": "status"
+                }, {
+                    "data": "button"
+                }
+            ],
+            "searching": true,
+            "lengthMenu": [
+                [10, 25, 50,100],
+                [10, 25, 50,100]
+            ],
+            "drawCallback": function(settings) {
+                // Update the records total and filtered records count
+                var api = this.api();
+                $('#recordsTotal').text(api.page.info().recordsTotal);
+                $('#recordsFiltered').text(api.page.info().recordsDisplay);
+            },
 
 
-            });
         });
-    </script>
+    });
+</script>
 @endsection
