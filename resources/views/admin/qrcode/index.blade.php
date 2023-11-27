@@ -17,9 +17,8 @@
                     <thead>
                         <tr>
                             <th>User Id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
+                            <th>QR Code</th>
+                            <th>Link</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -42,6 +41,7 @@
 
                     "dataType": "json",
                     "dataSrc": function(json) {
+                        console.log(json)
                         return json.data; // Assuming your data is wrapped in an array
                     },
 
@@ -52,9 +52,6 @@
                     },
                     {
                         "data": "name"
-                    },
-                    {
-                        "data": "email"
                     },
                     {
                         "data": "phone"
