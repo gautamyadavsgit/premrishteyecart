@@ -11,7 +11,7 @@ class GenerateQrCodes extends Command
      *
      * @var string
      */
-    protected $signature = 'app:generate-qr-codes';
+    protected $signature = 'app:generate-qr-codes {quantity : The quantity of QR codes to generate}';
 
     /**
      * The console command description.
@@ -24,8 +24,8 @@ class GenerateQrCodes extends Command
      * Execute the console command.
      */
     public function handle()
-    {
-        $qrController = QrCodeController::generate_qr();
+    { 
+        $qrController = QrCodeController::generate_qr($this->argument('quantity'));
         $this->info('qr create successfully');
        
     }
