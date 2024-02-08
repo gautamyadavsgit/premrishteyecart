@@ -58,7 +58,7 @@
         </div>
     </main>
     <script>
-        const qrRoute = "{{ route('qr-code.store') }}";
+        // const qrRoute = "{{ route('qr-code.store') }}";
         $(document).ready(function() {
             $('#qr-table').DataTable({
                 "processing": true,
@@ -105,10 +105,11 @@
         $(document).ready(function() {
             $('#qr-generate').on('submit', function(e) {
                 e.preventDefault();
+                var qrroute = $(this).attr('action');
                 data = {
                     'quantity': $('#quantity').val()
                 }
-                $.post(qrRoute, data);
+                $.post(qrroute, data);
             });
         })
     </script>

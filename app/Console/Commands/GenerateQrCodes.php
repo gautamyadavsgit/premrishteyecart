@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Http\Controllers\admin\QrCodeController;
+use App\Jobs\GenerateQrCodes as GenerateQrCodesJob ;
 class GenerateQrCodes extends Command
 {
     /**
@@ -11,7 +12,7 @@ class GenerateQrCodes extends Command
      *
      * @var string
      */
-    protected $signature = 'app:generate-qr-codes {quantity : The quantity of QR codes to generate}';
+    protected $signature = 'app:generate-qr-codes';
 
     /**
      * The console command description.
@@ -25,8 +26,7 @@ class GenerateQrCodes extends Command
      */
     public function handle()
     { 
-        $qrController = QrCodeController::generate_qr($this->argument('quantity'));
-        $this->info('qr create successfully');
+        GenerateQrCodesJob::dispatch();
        
     }
 }

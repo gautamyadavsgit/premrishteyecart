@@ -25,12 +25,18 @@
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Qr Code</span>
                 </a>
             </li>
+            <li class="sidebar-item {{ request()->routeIs('shop.*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('shop.index') }}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Shop</span>
+                </a>
+            </li>
+            
 
-            <li class="sidebar-item">
+            {{-- <li class="sidebar-item">
                 <a class="sidebar-link" href="pages-sign-in.html">
                     <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">Sign In</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="pages-sign-up.html">

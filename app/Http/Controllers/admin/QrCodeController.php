@@ -9,6 +9,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Models\QrCode as QrModel;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
+use App\Jobs\GenerateQrCodes;
 
 class QrCodeController extends Controller
 {
@@ -66,6 +67,8 @@ class QrCodeController extends Controller
      */
     public function create(Request $request)
     {
+
+        GenerateQrCodes::dispatch()->times();
     }
 
     /**
@@ -74,32 +77,15 @@ class QrCodeController extends Controller
 
     public static function generate_qr($qua)
     {
-        for ($i = 0; $i < $qua; $i++) {
-            $timestamp = Carbon::now()->timestamp;
-            $dataToEncode = url("scanqr") . '/' . $timestamp;
-
-            // Generate QR code image in memory
-            $qrCodeImage = QrCode::format('png')->size(500)->errorCorrection('H')->generate($dataToEncode);
-
-            // Move the generated QR code image to a storage directory
-            $fileName = $timestamp . '_' . uniqid() . '.png'; // Unique file name
-            $storagePath = 'uploads/QRcode/' . $fileName;
-
-            Storage::disk('public')->put($storagePath, $qrCodeImage);
-
-            // Optionally, you can also save relevant information to your database
-            $res = QrModel::create([
-                'encoded_data' => $dataToEncode,
-                'path' => $storagePath,
-            ]);
-            if ($i % 10 === 0 && $i != $qua)
-                sleep(1);
-        }
     }
     public function store(Request $request)
     {
         $quantity = $request->input('quantity');
-        Artisan::call('app:generate-qr-codes', ['quantity' => $quantity]);
+        // Artisan::call('app:generate-qr-codes', ['quantity' => $quantity]);
+        for ($i = 1; $i <= $quantity; $i++) {
+            GenerateQrCodes::dispatch();
+        }
+        return response()->json(['message' => 'Jobs dispatched successfully']);
     }
 
     /**
