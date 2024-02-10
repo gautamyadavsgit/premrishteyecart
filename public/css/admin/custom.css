@@ -1,0 +1,13 @@
+.valid {
+    border: 2px solid #00ff00; /* Green border for valid elements */
+}
+
+/* Style for elements with validation errors */
+.error {
+    color: #ff0000; /* Red border for elements with errors */
+}
+
+/* Style for error messages */
+.errorLabelContainer {
+    color: #ff0000; /* Red text color for error messages */
+}

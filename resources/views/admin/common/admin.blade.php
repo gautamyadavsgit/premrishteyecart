@@ -12,17 +12,15 @@
 
     @endif
     @if (session('success'))
-        <div class="alert alert-success mt-2">
-            <p class="text-success"> {{ session('success') }}</p>
-
-        </div>
+        <script>
+            toastr.success('{{ session('success') }}');
+        </script>
     @endif
 
     @if (session('error'))
-        <div class="alert alert-success  mt-2">
-            <p class="text-warning"> {{ session('error') }}</p>
-
-        </div>
+        <script>
+            toastr.error('{{ session('error') }}');
+        </script>
     @endif
 </div>
 @yield('content');

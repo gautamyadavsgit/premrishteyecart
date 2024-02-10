@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\ShopPaymentLink;
 class ShopKeeper extends Controller
 {
     /**
@@ -14,6 +14,8 @@ class ShopKeeper extends Controller
     {
         $data['cssArray'] = ['//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css'];
         $data['jsArray'] = ['//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js'];
+       
+
         return view('admin.shop.index', $data);
     }
     public function shop_list(Request $request)
@@ -32,6 +34,9 @@ class ShopKeeper extends Controller
 
         $data['roles'] = [];
         $data['user'] = [];
+        $data['paymentOptions'] = getEnumValues('shop_payment_links', 'value');
+        
+        dd($data['paymentOptions']);
 
         return view('admin.shop.create', $data);
     }

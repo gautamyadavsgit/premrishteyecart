@@ -14,7 +14,11 @@
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                 </a>
             </li>
-
+            <li class="sidebar-item {{ request()->routeIs('category.*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('category.index') }}">
+                    <i class="align-middle" data-feather="user"></i> <span class="align-middle">Category</span>
+                </a>
+            </li>
             <li class="sidebar-item {{ request()->routeIs('users.*') ? 'active' : '' }}">
                 <a class="sidebar-link" href="{{ route('users.index') }}">
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Users</span>
@@ -30,7 +34,7 @@
                     <i class="align-middle" data-feather="user"></i> <span class="align-middle">Shop</span>
                 </a>
             </li>
-            
+
 
             {{-- <li class="sidebar-item">
                 <a class="sidebar-link" href="pages-sign-in.html">
@@ -123,7 +127,8 @@
         <div class="navbar-collapse collapse">
             <ul class="navbar-nav navbar-align">
                 <li class="nav-item dropdown">
-                    <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+                    <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown"
+                        data-bs-toggle="dropdown">
                         <div class="position-relative">
                             <i class="align-middle" data-feather="bell"></i>
                             <span class="indicator">4</span>
@@ -274,7 +279,7 @@
                     <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#"
                         data-bs-toggle="dropdown">
                         <img src="{{ asset('img/avatars/avatar.jpg') }}" class="avatar img-fluid rounded me-1"
-                            alt="Charles Hall" /> <span class="text-dark">{{Auth::user()->name}}</span>
+                            alt="Charles Hall" /> <span class="text-dark">{{ Auth::user()->name }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end">
                         <a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1"

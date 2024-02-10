@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\QrCodeController;
+use App\Http\Controllers\admin\ShopCategory;
 use App\Http\Controllers\admin\ShopKeeper;
 
 /*
@@ -32,6 +33,8 @@ Route::prefix('admin')->middleware('admin.access')->group(function () {
     Route::post('qr-list', [QrCodeController::class, 'qr_list'])->name('admin.qr-list');
     Route::resource('shop', ShopKeeper::class);
     Route::post('shop-list', [ShopKeeper::class, 'shop_list'])->name('admin.shop.data');
+    Route::resource('category', ShopCategory::class);
+    Route::post('category-list', [ShopCategory::class, 'category_list'])->name('admin.category-list');
 });
 
 Route::redirect('/admin', '/admin/login');
