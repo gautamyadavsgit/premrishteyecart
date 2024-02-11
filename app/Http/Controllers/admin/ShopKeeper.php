@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ShopPaymentLink;
+use App\Enums\PaymentMerchants;
+use Illuminate\Validation\Rules\File;
 class ShopKeeper extends Controller
 {
     /**
@@ -14,7 +16,7 @@ class ShopKeeper extends Controller
     {
         $data['cssArray'] = ['//cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css'];
         $data['jsArray'] = ['//cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js'];
-       
+
 
         return view('admin.shop.index', $data);
     }
@@ -30,13 +32,12 @@ class ShopKeeper extends Controller
     {
         //
         $data['cssArray'] = [];
-        $data['jsArray'] = [];
+        $data['jsArray'] = ['https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js'];
 
         $data['roles'] = [];
         $data['user'] = [];
-        $data['paymentOptions'] = getEnumValues('shop_payment_links', 'value');
-        
-        dd($data['paymentOptions']);
+        $data['paymentOptions'] = PaymentMerchants::getEnumValues('shop_payment_links', 'key');
+
 
         return view('admin.shop.create', $data);
     }
@@ -46,7 +47,32 @@ class ShopKeeper extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'mobile' => 'required|numeric',
+            'whatsapp' => 'nullable|string|max:255',
+            'about' => 'required',
+            'message' => 'required',
+            'profile_photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+         ]);
+        if ($request->hasFile('back-cover')) {
+            $file = $request->file('back-cover');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $filePath = 'back-cover/' . $fileName;
+
+            // Move the uploaded file to the desired storage location
+            $file->storeAs('public', $filePath);
+
+            // Save the file name and path to the database or use it as needed
+            // ...
+        }
+
+        $userData = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ];
     }
 
     /**

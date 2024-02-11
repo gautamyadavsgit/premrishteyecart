@@ -9,9 +9,8 @@
                     Create/Update user
                 </a>
             </div>
-            <form method="post" {{-- @if (isset($user)) action="{{ route('shop.update', ['user' => $user['id']]) }}" --}} {{-- @else --}} {{-- action="{{ route('shop.store') }}"  // @endif> --}} @csrf
-                {{-- @if (isset($user)) --}} {{-- @method('PUT') --}} {{-- @endif --}} <input type="hidden" name="user_id"
-                value="{{ $user['id'] ?? '' }}">
+            <form method="post" action="{{ route('shop.store') }}"> @csrf
+                @csrf
                 <div class="row">
                     <div class="col-12 col-lg-6">
                         <div class="card">
@@ -19,7 +18,7 @@
                                 <h5 class="card-title mb-0">Back Cover</h5>
                             </div>
                             <div class="card-body">
-                                <input type="file" name="back-cover" class="form-control">
+                                <input type="file" name="back_cover" class="form-control">
                             </div>
                         </div>
 
@@ -28,7 +27,7 @@
                                 <h5 class="card-title mb-0">Profile Photo</h5>
                             </div>
                             <div class="card-body">
-                                <input type="file" class="form-control" name="profile-photo">
+                                <input type="file" class="form-control" name="profile_photo">
                             </div>
                         </div>
                     </div>
@@ -39,7 +38,7 @@
                                 <h5 class="card-title mb-0">Name</h5>
                             </div>
                             <div class="card-body">
-                                <input type="text" name="name" class="form-control"
+                                <input type="text" required name="name" class="form-control"
                                     value="{{ old('name', isset($user['name']) ? $user['name'] : '') }}"
                                     placeholder="Enter user name">
                             </div>
@@ -50,71 +49,118 @@
                                 <h5 class="card-title mb-0">Whatsapp</h5>
                             </div>
                             <div class="card-body">
-                                <input type="number" class="form-control" name="whatsapp" value="{{ old('whatsapp') }}"
+                                <input type="number" required class="form-control" name="whatsapp" value="{{ old('whatsapp') }}"
                                     placeholder="Enter Whatsapp">
                             </div>
                         </div>
                     </div>
-                
 
-                <div class="col-12 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Email</h5>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Email</h5>
+                            </div>
+                            <div class="card-body">
+                                <input type="email" required name="email" class="form-control"
+                                    value="{{ old('email', isset($user['email']) ? $user['email'] : '') }}"
+                                    placeholder="Enter user email">
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <input type="email" name="email" class="form-control"
-                                value="{{ old('email', isset($user['email']) ? $user['email'] : '') }}"
-                                placeholder="Enter user email">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Phone</h5>
+                            </div>
+                            <div class="card-body">
+                                <input type="tel" required name="mobile"
+                                    value="{{ old('mobile', isset($user['mobile']) ? $user['mobile'] : '') }}"
+                                    class="form-control" placeholder="Enter user phone">
+                            </div>
                         </div>
                     </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Google Map</h5>
+                            </div>
+                            <div class="card-body">
+                                <input type="text" required name="googlemap" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Website</h5>
+                            </div>
+                            <div class="card-body">
+                                <input type="text" required  name=""
+                                    value="{{ old('mobile', isset($user['mobile']) ? $user['mobile'] : '') }}"
+                                    class="form-control" placeholder="Enter user phone">
+                            </div>
+                        </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Phone</h5>
+
+                    </div>
+
+                    <div class="col-12 col-lg-6">
+                        <div class="payment-link-type">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Payment links</h5>
+                                </div>
+
+                                <div class="card-body">
+                                    <select class="form-select mb-3 payment-links" name="roll">
+                                        <option value="0" disabled selected>Select payment link type</option>
+                                        @foreach ($paymentOptions as $option)
+                                            <option value="{{ $option }}">
+                                                {{ convertCamelcaseToString($option) }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+                            </div>
+                            {{-- <button type="button" class="btn btn-success">Add More</button> --}}
                         </div>
-                        <div class="card-body">
-                            <input type="tel" name="mobile"
-                                value="{{ old('mobile', isset($user['mobile']) ? $user['mobile'] : '') }}"
-                                class="form-control" placeholder="Enter user phone">
+
+                    </div>
+
+                    <div class="col-12 ">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">About</h5>
+                            </div>
+                            <div class="card-body">
+                                <textarea name="about" id="about-text1" class="form-control"></textarea>
+                            </div>
                         </div>
+
+                    </div>
+                    <div class="col-12 ">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">Message</h5>
+                            </div>
+                            <div class="card-body">
+                                <textarea name="message" id="message" class="form-control"></textarea>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-
-                <div class="col-12 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Payment links</h5>
-                        </div>
-                        <div class="card-body">
-                            <select class="form-select mb-3" name="roll">
-                                @foreach ($roles as $role)
-                                    <option value="{{ $role['name'] }}"
-                                        {{ old('roll', isset($user['name']) ? $user['name'] : '') == $role['name'] ? 'selected' : '' }}>
-                                        {{ $role['name'] }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Status</h5>
-                        </div>
-                        <div class="card-body">
-                            <select name="status" class="form-select mb-3">
-                                <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
-                                <option value="2" {{ old('status') == '2' ? 'selected' : '' }}>Deactive</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-        </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
-        </form>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
         </div>
     </main>
+    <script>
+        $(document).ready(function() {
+
+            CKEDITOR.replace('about-text1');
+            CKEDITOR.replace('message');
+
+        });
+    </script>
 @endsection

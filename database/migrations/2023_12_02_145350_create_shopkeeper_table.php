@@ -14,10 +14,7 @@ return new class extends Migration
         Schema::create('shopkeeper', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('name', 255);
-            $table->string('phone', 14);
             $table->string('whatsapp', 255);
-            $table->string('mail', 50);
             $table->string('website', 50);
             $table->text('about');
             $table->text('google_map');
